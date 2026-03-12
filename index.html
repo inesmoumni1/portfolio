@@ -259,7 +259,6 @@ section{padding:8rem 10%;}
 
 <!-- ══════════ EXPERIENCE ══════════ -->
 <section id="experience">
-  <span class="s-label rv">Professional Experience</span>
   <div class="exp-grid">
     <div class="exp-sticky rv">
       <span class="s-label">Professional Experience</span>
@@ -495,7 +494,8 @@ function updateStickyOpacity(){
     sticky.style.opacity = overlap ? '0.15' : '1';
   });
 }
-window.addEventListener('scroll', updateStickyOpacity);
+window.addEventListener('scroll', updateStickyOpacity, {passive:true});
+setTimeout(updateStickyOpacity, 800);
 updateStickyOpacity();
 const hgSec=document.getElementById('projects');
 const hgImg=document.getElementById('hgImg');
