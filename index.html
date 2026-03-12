@@ -482,16 +482,18 @@ document.querySelectorAll('.rv').forEach(el=>obs.observe(el));
 function updateStickyOpacity(){
   document.querySelectorAll('.edu-sticky, .exp-sticky').forEach(sticky => {
     const stickyR = sticky.getBoundingClientRect();
-    const items = sticky.closest('.edu-grid, .exp-grid').querySelectorAll('.edu-item, .exp-item');
+    const section = sticky.closest('section');
+    if(!section) return;
+    const items = section.querySelectorAll('.edu-item, .exp-item');
     let overlap = false;
     items.forEach(item => {
       const itemR = item.getBoundingClientRect();
-      if(itemR.top < stickyR.bottom && itemR.bottom > stickyR.top &&
-         itemR.left < stickyR.right && itemR.right > stickyR.left){
+      if(itemR.top < stickyR.bottom - 20 && itemR.bottom > stickyR.top){
         overlap = true;
       }
     });
-    sticky.style.opacity = overlap ? '0.15' : '1';
+    sticky.style.opacity = overlap ? '0.12' : '1';
+    sticky.style.transition = 'opacity 0.4s';
   });
 }
 window.addEventListener('scroll', updateStickyOpacity, {passive:true});
