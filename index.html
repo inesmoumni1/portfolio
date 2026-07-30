@@ -1,516 +1,366 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Inès Moumni</title>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@200;300;400;500&display=swap" rel="stylesheet">
-<style>
-:root{
-  --cream:#F8F4EE;
-  --warm:#FDFBF8;
-  --dark:#16120E;
-  --charcoal:#1E1A16;
-  --gold:#B8703A;
-  --gold-l:#D4956A;
-  --muted:#7A6E64;
-  --border:rgba(184,112,58,0.15);
-}
-*{margin:0;padding:0;box-sizing:border-box}
-html{scroll-behavior:smooth}
-body{background:var(--cream);color:var(--dark);font-family:'DM Sans',sans-serif;line-height:1.7;overflow-x:hidden;}
-a,button{cursor:pointer;}
-
-/* CURSOR */
-.cur{width:8px;height:8px;background:var(--gold);border-radius:50%;position:fixed;top:0;left:0;pointer-events:none;z-index:9999;mix-blend-mode:multiply;}
-.cur-r{width:36px;height:36px;border:1px solid var(--gold);border-radius:50%;position:fixed;top:0;left:0;pointer-events:none;z-index:9998;opacity:.45;transition:width .3s,height .3s,opacity .3s;}
-
-/* NAV */
-nav{position:fixed;top:0;width:100%;z-index:100;padding:1.6rem 6%;display:flex;justify-content:space-between;align-items:center;transition:background .4s;}
-nav.sc{background:rgba(248,244,238,.96);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);}
-.n-logo{font-family:'Playfair Display',serif;font-size:1.1rem;letter-spacing:3px;text-decoration:none;color:var(--dark);text-transform:uppercase;}
-.n-links a{font-size:.67rem;text-transform:uppercase;letter-spacing:2.5px;text-decoration:none;color:var(--muted);margin-left:2.5rem;transition:color .3s;}
-.n-links a:hover{color:var(--gold);}
-
-/* ── HERO ── */
-#hero{min-height:100vh;display:flex;flex-direction:column;justify-content:center;background:var(--warm);padding:9rem 10% 5rem;}
-.h-name-row{display:flex;align-items:center;gap:2.5rem;margin-bottom:1.8rem;opacity:0;animation:sL .9s .3s forwards;}
-.h-name{font-family:'Playfair Display',serif;font-size:clamp(3.2rem,5.5vw,5.8rem);font-weight:700;line-height:1.0;}
-.h-name .surname{color:var(--gold);font-style:italic;}
-.h-avatar{width:110px;height:110px;border-radius:4px;overflow:hidden;flex-shrink:0;border:1px solid var(--border);filter:sepia(4%) contrast(1.02);}
-.h-avatar img{width:100%;height:100%;object-fit:cover;object-position:top center;}
-.h-tag{font-size:clamp(.9rem,1.4vw,1.15rem);font-weight:300;color:var(--muted);margin-bottom:3.5rem;min-height:1.8em;opacity:0;animation:fU .8s 1s forwards;}
-.h-tag .tc{color:var(--gold);}
-.h-chips{display:flex;flex-wrap:wrap;gap:.55rem;margin-bottom:3.5rem;opacity:0;animation:fU .8s 1.7s forwards;}
-.chip{padding:.38rem 1rem;border:1px solid var(--border);font-size:.68rem;letter-spacing:1px;text-transform:uppercase;color:var(--muted);transition:all .3s;}
-.chip:hover{background:var(--gold);color:#fff;border-color:var(--gold);}
-.h-cta{display:inline-flex;align-items:center;gap:.8rem;text-decoration:none;font-size:.7rem;letter-spacing:2px;text-transform:uppercase;color:var(--dark);border-bottom:1px solid var(--gold);padding-bottom:.4rem;width:fit-content;opacity:0;animation:fU .8s 2s forwards;transition:color .3s;}
-.h-cta:hover{color:var(--gold);}
-.h-stats{display:grid;grid-template-columns:repeat(4,1fr);margin-top:4rem;border-top:1px solid var(--border);opacity:0;animation:fU .8s 2.2s forwards;}
-.h-stat{padding:2rem 0 0;border-right:1px solid var(--border);}
-.h-stat:last-child{border-right:none;}
-.h-stat:not(:first-child){padding-left:2rem;}
-.h-stat-n{font-family:'Playfair Display',serif;font-size:2rem;color:var(--gold);display:block;}
-.h-stat-l{font-size:.58rem;text-transform:uppercase;letter-spacing:1.5px;color:var(--muted);margin-top:.3rem;}
-
-/* ── SHARED ── */
-.s-label{font-size:.62rem;text-transform:uppercase;letter-spacing:4px;color:var(--gold);margin-bottom:1rem;display:block;}
-.rv{opacity:0;transform:translateY(28px);transition:opacity .7s,transform .7s;}
-.rv.on{opacity:1;transform:translateY(0);}
-.d1{transition-delay:.1s}.d2{transition-delay:.2s}.d3{transition-delay:.3s}.d4{transition-delay:.4s}
-
-section{padding:8rem 10%;}
-
-/* ── EDUCATION ── */
-#education{background:var(--cream);}
-.edu-grid{display:grid;grid-template-columns:240px 1fr;gap:5rem;margin-top:3.5rem;}
-.edu-sticky{position:sticky;top:7rem;transition:opacity .3s;}
-.edu-sticky .s-label{font-size:.58rem;letter-spacing:3px;color:var(--muted);margin-bottom:.6rem;}
-.edu-sticky h2{font-family:'Playfair Display',serif;font-size:clamp(2.2rem,3.5vw,3rem);font-weight:400;line-height:1.15;}
-.edu-sticky h2 em{font-style:italic;color:var(--gold);}
-.edu-items{display:flex;flex-direction:column;gap:0;}
-.edu-item{padding:2.2rem 0;border-bottom:1px solid var(--border);}
-.edu-item:last-child{border-bottom:none;}
-.edu-date{font-size:.68rem;letter-spacing:1.5px;text-transform:uppercase;color:var(--gold);margin-bottom:.5rem;}
-.edu-item h3{font-family:'Playfair Display',serif;font-size:1.25rem;margin-bottom:.25rem;}
-.edu-item .sub{font-size:.75rem;text-transform:uppercase;letter-spacing:1.5px;color:var(--muted);margin-bottom:.7rem;}
-.edu-item p{font-weight:300;font-size:.87rem;color:var(--muted);line-height:1.85;}
-
-/* ── EXPERIENCE ── */
-#experience{background:var(--warm);}
-.exp-grid{display:grid;grid-template-columns:240px 1fr;gap:5rem;margin-top:3.5rem;}
-.exp-sticky{position:sticky;top:7rem;transition:opacity .3s;}
-.exp-sticky .s-label{font-size:.58rem;letter-spacing:3px;color:var(--muted);margin-bottom:.6rem;}
-.exp-sticky h2{font-family:'Playfair Display',serif;font-size:clamp(2.2rem,3.5vw,3rem);font-weight:400;line-height:1.15;}
-.exp-sticky h2 em{font-style:italic;color:var(--gold);}
-.exp-items{display:flex;flex-direction:column;gap:0;}
-.exp-item{padding:2.5rem 0;border-bottom:1px solid var(--border);}
-.exp-item:last-child{border-bottom:none;}
-.exp-date{font-size:.68rem;letter-spacing:1.5px;text-transform:uppercase;color:var(--gold);margin-bottom:.4rem;}
-.exp-item h3{font-family:'Playfair Display',serif;font-size:1.3rem;margin-bottom:.2rem;}
-.exp-item .org{font-size:.73rem;text-transform:uppercase;letter-spacing:1.5px;color:var(--muted);margin-bottom:.8rem;}
-.exp-item p{font-weight:300;font-size:.87rem;color:var(--muted);line-height:1.85;margin-bottom:.6rem;}
-.exp-role{font-size:.73rem;text-transform:uppercase;letter-spacing:1.5px;color:var(--muted);margin-bottom:.8rem;}
-.exp-list{list-style:none;margin:.8rem 0;display:flex;flex-direction:column;gap:.5rem;}
-.exp-list li{font-weight:300;font-size:.87rem;color:var(--muted);line-height:1.75;padding-left:1.4rem;position:relative;}
-.exp-list li::before{content:'→';color:var(--gold);position:absolute;left:0;font-size:.75rem;}
-.exp-list li strong{color:var(--dark);font-weight:500;}
-.exp-tags{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:.8rem;}
-.tag{font-size:.62rem;letter-spacing:1.2px;text-transform:uppercase;padding:.28rem .75rem;background:rgba(184,112,58,.08);color:var(--gold);}
-.exp-kpis{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:.8rem;}
-.kpi{font-size:.65rem;letter-spacing:1px;text-transform:uppercase;padding:.25rem .7rem;background:rgba(184,112,58,.08);color:var(--gold);}
-
-/* Welcome Kit grid */
-.kit-grid{display:grid;grid-template-columns:1fr 1fr;gap:.8rem;margin-top:1.2rem;}
-.kit-cell{overflow:hidden;border-radius:2px;background:#f0ede9;}
-.kit-cell img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .5s;}
-.kit-cell:hover img{transform:scale(1.03);}
-
-/* IG feed */
-.ig-feed{display:grid;grid-template-columns:1fr 1fr;gap:.6rem;margin-top:1rem;}
-.ig-cell{overflow:hidden;aspect-ratio:1;border-radius:2px;}
-.ig-cell img{width:100%;height:100%;object-fit:cover;transition:transform .5s;}
-.ig-cell:hover img{transform:scale(1.05);}
-.ig-blog{display:grid;grid-template-columns:1fr 1fr;gap:.6rem;margin-top:.8rem;}
-.blog-cell{background:var(--cream);padding:1.2rem 1.4rem;border-left:2px solid var(--gold);}
-.blog-cell .bn{font-family:'Playfair Display',serif;font-size:1.4rem;color:var(--gold);}
-.blog-cell .bl{font-size:.63rem;text-transform:uppercase;letter-spacing:1.5px;color:var(--muted);margin-top:.3rem;}
-
-/* ── PROJECTS ── */
-#projects{background:var(--cream);padding:8rem 10%;}
-#projects h2.sec-h{font-family:'Playfair Display',serif;font-size:clamp(2.2rem,3.5vw,3rem);font-weight:400;margin-bottom:4rem;}
-#projects h2.sec-h em{font-style:italic;color:var(--gold);}
-
-/* RetailSignal */
-.rs-wrap{background:var(--charcoal);padding:4rem;margin-bottom:2rem;position:relative;overflow:hidden;}
-.rs-wrap::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 70% 30%,rgba(184,112,58,.07) 0%,transparent 70%);pointer-events:none;}
-.rs-top{display:grid;grid-template-columns:1.2fr 1fr;gap:4rem;align-items:start;margin-bottom:2.5rem;}
-.rs-text .s-label{color:var(--gold-l);}
-.rs-text h3{font-family:'Playfair Display',serif;font-size:2rem;color:#fff;line-height:1.1;margin-bottom:1.2rem;}
-.rs-text h3 em{font-style:italic;color:var(--gold);}
-.rs-text p{font-weight:300;font-size:.87rem;color:rgba(255,255,255,.5);line-height:1.9;margin-bottom:.8rem;}
-.rs-feats{list-style:none;margin:0;padding-top:.5rem;}
-.rs-feats li{display:flex;gap:.8rem;padding:.7rem 0;border-bottom:1px solid rgba(255,255,255,.06);font-size:.8rem;color:rgba(255,255,255,.38);transition:color .3s;cursor:default;}
-.rs-feats li:hover{color:rgba(255,255,255,.82);}
-.rs-feats li::before{content:'→';color:var(--gold);flex-shrink:0;}
-.rs-btn{display:inline-block;margin-top:0;padding:.85rem 2.2rem;background:var(--gold);color:#fff;text-decoration:none;font-size:.68rem;letter-spacing:2.5px;text-transform:uppercase;transition:opacity .3s,transform .3s;}
-.rs-btn:hover{opacity:.85;transform:translateX(4px);}
-@media(max-width:1100px){.rs-top{grid-template-columns:1fr;}}
-.live-badge{display:inline-flex;align-items:center;gap:.4rem;background:rgba(40,200,80,.1);border:1px solid rgba(40,200,80,.25);padding:.15rem .6rem;border-radius:20px;font-size:.58rem;letter-spacing:1.5px;color:rgba(40,200,80,.9);margin-left:.6rem;vertical-align:middle;}
-.live-dot{width:6px;height:6px;background:#28C840;border-radius:50%;animation:livePulse 1.8s ease-in-out infinite;flex-shrink:0;}
-@keyframes livePulse{0%,100%{box-shadow:0 0 0 0 rgba(40,200,80,.5);opacity:1;}50%{box-shadow:0 0 0 5px rgba(40,200,80,0);opacity:.7;}}border:1px solid rgba(255,255,255,.08);border-radius:8px;overflow:hidden;box-shadow:0 30px 60px rgba(0,0,0,.55);transform:perspective(900px) rotateY(-3deg) rotateX(1deg);transition:transform .5s;width:100%;}
-.browser:hover{transform:perspective(900px) rotateY(0) rotateX(0);}
-.br-bar{background:#1A1714;padding:.7rem 1rem;display:flex;align-items:center;gap:.45rem;border-bottom:1px solid rgba(255,255,255,.05);}
-.br-dot{width:9px;height:9px;border-radius:50%;}
-.br-url{flex:1;background:rgba(255,255,255,.04);padding:.25rem .7rem;border-radius:3px;font-size:.62rem;color:rgba(255,255,255,.25);font-family:monospace;margin:0 .5rem;}
-.br-body{padding:0;overflow:hidden;}
-.br-body img{width:100%;display:block;object-fit:cover;}
-
-/* Hammam */
-.hg-wrap{display:grid;grid-template-columns:1fr 2fr;gap:4rem;align-items:center;padding-top:4rem;border-top:1px solid var(--border);}
-.hg-img{position:relative;}
-.hg-img img{width:100%;display:block;filter:drop-shadow(0 20px 50px rgba(0,0,0,.12));transition:transform .1s ease-out;}
-.hg-text .s-label{margin-top:0;}
-.hg-text h3{font-family:'Playfair Display',serif;font-size:1.9rem;font-weight:400;line-height:1.15;margin-bottom:1.2rem;}
-.hg-text h3 em{font-style:italic;color:var(--gold);}
-.hg-text p{font-weight:300;font-size:.87rem;color:var(--muted);line-height:1.9;margin-bottom:.8rem;}
-.sku-g{display:grid;grid-template-columns:1fr 1fr;gap:.6rem;margin-top:1.2rem;}
-.sku{padding:.7rem 1rem;background:var(--warm);font-size:.6rem;text-transform:uppercase;letter-spacing:2.5px;color:var(--muted);border-left:2px solid var(--gold);}
-
-/* ── CONTACT ── */
-#contact{background:var(--dark);text-align:center;position:relative;overflow:hidden;padding:9rem 5%;}
-#contact::before{content:'';position:absolute;width:700px;height:700px;background:radial-gradient(circle,rgba(184,112,58,.07) 0%,transparent 70%);top:50%;left:50%;transform:translate(-50%,-50%);border-radius:50%;}
-.ct-label{font-size:.62rem;text-transform:uppercase;letter-spacing:4px;color:var(--gold);margin-bottom:1.5rem;display:block;}
-.ct-title{font-family:'Playfair Display',serif;font-size:clamp(2.5rem,6vw,5rem);font-weight:400;color:#fff;line-height:1.05;margin-bottom:1.5rem;}
-.ct-title em{font-style:italic;color:var(--gold);}
-.ct-sub{font-weight:300;color:rgba(255,255,255,.38);font-size:.88rem;max-width:480px;margin:0 auto 3.5rem;line-height:1.9;}
-.ct-btn{display:inline-block;padding:1.1rem 3.2rem;background:var(--gold);color:#fff;text-decoration:none;font-size:.72rem;letter-spacing:3px;text-transform:uppercase;animation:pulse 2.5s ease-in-out infinite;position:relative;z-index:1;}
-.ct-links{margin-top:3rem;display:flex;justify-content:center;gap:2.5rem;flex-wrap:wrap;}
-.ct-links a{font-size:.66rem;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.28);text-decoration:none;transition:color .3s;}
-.ct-links a:hover{color:var(--gold);}
-.ft{margin-top:6rem;padding-top:2rem;border-top:1px solid rgba(255,255,255,.06);font-size:.58rem;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.15);}
-
-@keyframes fU{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
-@keyframes sL{from{opacity:0;transform:translateX(-40px)}to{opacity:1;transform:translateX(0)}}
-@keyframes sR{from{opacity:0;transform:translateX(40px)}to{opacity:1;transform:translateX(0)}}
-@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
-@keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(184,112,58,.4)}50%{box-shadow:0 0 0 14px rgba(184,112,58,0)}}
-
-@media(max-width:900px){
-  .rs-wrap{grid-template-columns:1fr}
-  .hg-wrap{grid-template-columns:1fr}
-  .edu-grid,.exp-grid{grid-template-columns:1fr}
-  .n-links{display:none}
-  .kit-grid{grid-template-columns:1fr 1fr}
-  .ig-feed{grid-template-columns:1fr 1fr}
-}
-@media(max-width:768px){
-  .h-stats{grid-template-columns:repeat(2,1fr)}
-  .h-stat{border-right:none;border-bottom:1px solid var(--border);padding:1.5rem 1rem;}
-  .h-stat:last-child{border-bottom:none;}
-}
-</style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Inès Moumni — Product-minded Designer</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --white: #ffffff;
+      --ink: #1a1a1a;
+      --ink-soft: #6b6560;
+      --ink-muted: #a8a39d;
+      --line: #e8e8e8;
+      --blue-highlight: #c8dff5;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'DM Sans', sans-serif; background: var(--white); color: var(--ink); cursor: none; overflow-x: hidden; }
+    #cursor-canvas { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 9999; }
+    .cursor-dot { width: 8px; height: 8px; background: var(--ink); border-radius: 50%; position: fixed; pointer-events: none; z-index: 10000; transform: translate(-50%, -50%); transition: transform 0.08s ease; }
+    nav { position: fixed; top: 0; left: 0; right: 0; z-index: 500; display: flex; align-items: center; justify-content: center; padding: 20px 48px; gap: 40px; background: rgba(255,255,255,0.92); backdrop-filter: blur(8px); border-bottom: 1px solid transparent; transition: border-color 0.3s; }
+    nav.scrolled { border-bottom-color: var(--line); }
+    .nav-link { font-size: 13px; font-weight: 400; color: var(--ink-soft); text-decoration: none; letter-spacing: 0.2px; transition: color 0.2s; cursor: none; display: flex; align-items: center; gap: 6px; }
+    .nav-link:hover, .nav-link.active { color: var(--ink); }
+    .nav-icon { font-size: 14px; }
+    .nav-resume { color: var(--ink) !important; border: 1px solid var(--line); border-radius: 100px; padding: 5px 16px; transition: background 0.2s, border-color 0.2s !important; }
+    .nav-resume:hover { background: var(--ink); color: var(--white) !important; border-color: var(--ink); }
+    .page { display: none; min-height: 100vh; }
+    .page.active { display: block; }
+    /* ---- HOME (contains hero + work thumbnails in one scroll) ---- */
+    #page-home { padding-top: 80px; }
+    .home-hero { padding: 100px 64px 64px; max-width: 1100px; }
+    .hero-headline { font-family: 'DM Serif Display', serif; font-size: clamp(38px, 5vw, 62px); line-height: 1.15; letter-spacing: -1.5px; margin-bottom: 40px; font-weight: 400; }
+    .name-highlight { background: var(--blue-highlight); border-radius: 4px; padding: 0 4px; display: inline; }
+    .animated-word { font-style: italic; color: var(--ink-soft); display: inline-block; }
+    .hero-sub { font-size: 15px; font-weight: 300; color: var(--ink-soft); line-height: 1.7; max-width: 560px; margin-bottom: 8px; }
+    .hero-sub-shipped { font-size: 14px; color: var(--ink-muted); font-weight: 300; }
+    .hero-sub-shipped a { color: var(--ink-soft); text-decoration: underline; text-underline-offset: 3px; }
+    #work { padding: 8px 64px 0; max-width: 1100px; }
+    .work-eyebrow { font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: var(--ink-muted); margin-bottom: 24px; }
+    .work-cards { display: flex; flex-direction: column; gap: 0; padding-bottom: 120px; }
+    .work-card { display: block; text-decoration: none; color: inherit; border-top: 1px solid var(--line); cursor: none; transition: opacity 0.2s; }
+    .work-card:last-child { border-bottom: 1px solid var(--line); }
+    .work-card:hover { opacity: 0.85; }
+    .work-card-image { width: 100%; height: 420px; border-radius: 16px; overflow: hidden; margin: 40px 0 24px; }
+    .work-card-image img { width: 100%; height: 100%; object-fit: cover; object-position: top center; display: block; }
+    .wc-img-chandelles { background: linear-gradient(135deg, #f5ede2 0%, #e8d8c4 40%, #d4bfa3 100%); }
+    .wc-img-retailsignal { background: linear-gradient(135deg, #0d0d1a 0%, #1a1a3a 50%, #0f1f3a 100%); }
+    .wc-card-meta { padding-bottom: 40px; }
+    .wc-card-stat { font-family: 'DM Serif Display', serif; font-size: 13px; color: var(--ink-soft); margin-bottom: 8px; font-style: italic; }
+    .wc-card-title { font-family: 'DM Serif Display', serif; font-size: 26px; letter-spacing: -0.5px; margin-bottom: 14px; line-height: 1.2; }
+    .wc-badges { display: flex; gap: 8px; flex-wrap: wrap; }
+    .badge { font-size: 11px; font-weight: 500; letter-spacing: 0.3px; padding: 4px 12px; border-radius: 100px; border: 1px solid var(--line); color: var(--ink-soft); background: white; }
+    .badge-filled { background: var(--ink); color: white; border-color: var(--ink); }
+    footer { padding: 32px 64px; border-top: 1px solid var(--line); display: flex; align-items: center; justify-content: space-between; }
+    .footer-name { font-family: 'DM Serif Display', serif; font-size: 18px; }
+    .footer-links { display: flex; gap: 24px; }
+    .footer-links a { font-size: 13px; color: var(--ink-muted); text-decoration: none; transition: color 0.2s; }
+    .footer-links a:hover { color: var(--ink); }
+    .footer-copy { font-size: 12px; color: var(--ink-muted); }
+    /* ---- shared "clean" single-column layout (About + Chandelles case study) ---- */
+    .case-hero-img { width: 100%; height: 340px; margin-top: 80px; overflow: hidden; }
+    .case-hero-img img { width: 100%; height: 100%; object-fit: cover; object-position: center 35%; display: block; }
+    .clean-wrapper { max-width: 720px; margin: 0 auto; padding: 56px 32px 120px; }
+    #page-chandelles .clean-wrapper { padding-top: 56px; }
+    .clean-eyebrow { font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: var(--ink-muted); margin-bottom: 16px; }
+    .clean-h1 { font-family: 'DM Serif Display', serif; font-size: clamp(30px, 4vw, 40px); line-height: 1.2; margin-bottom: 16px; }
+    .clean-dek { font-size: 16px; color: var(--ink-soft); font-weight: 300; line-height: 1.7; margin-bottom: 40px; }
+    .clean-meta-table { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; padding: 24px 0; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); margin-bottom: 48px; }
+    .clean-meta-label { font-size: 10px; letter-spacing: 1.5px; text-transform: uppercase; color: var(--ink-muted); margin-bottom: 6px; }
+    .clean-meta-value { font-size: 13.5px; color: var(--ink); }
+    .clean-h2 { font-family: 'DM Serif Display', serif; font-size: 22px; margin: 48px 0 14px; }
+    .clean-h2:first-of-type { margin-top: 0; }
+    .clean-p { font-size: 15.5px; font-weight: 300; color: var(--ink-soft); line-height: 1.85; max-width: 66ch; margin-bottom: 14px; }
+    .clean-quote { border-left: 2px solid var(--ink); padding: 4px 22px; margin: 24px 0; font-size: 17px; font-style: italic; color: var(--ink); font-weight: 300; line-height: 1.6; }
+    .clean-quote cite { display: block; font-style: normal; font-size: 12.5px; color: var(--ink-muted); margin-top: 8px; }
+    .why-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin: 24px 0 8px; }
+    .why-card { border: 1px solid var(--line); border-radius: 12px; padding: 20px 18px; }
+    .why-card .icon { font-size: 18px; margin-bottom: 10px; }
+    .why-card .label { font-size: 10px; letter-spacing: 1.5px; text-transform: uppercase; color: var(--ink-muted); margin-bottom: 8px; }
+    .why-card p { font-size: 13.5px; color: var(--ink-soft); font-weight: 300; line-height: 1.6; }
+    .persona-card { border: 1px solid var(--line); border-radius: 14px; padding: 22px; margin: 24px 0; }
+    .persona-top { display: flex; align-items: center; gap: 12px; margin-bottom: 16px; }
+    .persona-photo { width: 44px; height: 44px; border-radius: 50%; background: var(--blue-highlight); overflow: hidden; flex-shrink: 0; }
+    .persona-photo img { width: 100%; height: 100%; object-fit: cover; }
+    .persona-name { font-size: 14px; font-weight: 500; }
+    .persona-role { font-size: 12px; color: var(--ink-muted); }
+    .persona-cols { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 14px; }
+    .persona-cols .h { font-size: 10px; letter-spacing: 1.5px; text-transform: uppercase; color: var(--ink-muted); margin-bottom: 6px; }
+    .persona-cols ul { padding-left: 16px; font-size: 13px; color: var(--ink-soft); font-weight: 300; line-height: 1.6; }
+    .persona-quote { font-size: 13.5px; font-style: italic; color: var(--ink); border-top: 1px solid var(--line); padding-top: 14px; }
+    .solution-shots { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin: 24px 0; }
+    .solution-shots img { width: 100%; border-radius: 10px; border: 1px solid var(--line); display: block; }
+    .impact-mobiles { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin: 24px 0; }
+    .impact-mobiles img { width: 100%; border-radius: 10px; border: 1px solid var(--line); display: block; }
+    .cs-cta { text-align: center; margin-top: 56px; padding-top: 40px; border-top: 1px solid var(--line); }
+    .cs-cta p { font-size: 14px; color: var(--ink-soft); margin-bottom: 16px; }
+    .cs-cta a.btn-cta { display: inline-block; background: #f7eee3; border: 1px solid #eadcc8; color: var(--ink); font-size: 13.5px; font-weight: 500; padding: 12px 28px; border-radius: 999px; text-decoration: none; }
+    /* ---- about page (reused clean styles + specifics) ---- */
+    .about-wrapper-v2 { max-width: 760px; margin: 0 auto; padding: 90px 32px 120px; display: flex; flex-direction: column; align-items: stretch; }
+    .about-photo-wrap { position: relative; align-self: center; margin-bottom: 44px; }
+    .about-photo-frame-v2 { width: 120px; height: 120px; border-radius: 50%; overflow: hidden; border: 1px solid var(--line); background: #f4f2ef; }
+    .about-photo-frame-v2 img { width: 100%; height: 100%; object-fit: cover; object-position: center top; }
+    .about-photo-sparkle { position: absolute; right: -10px; top: -8px; font-size: 18px; color: var(--ink-soft); }
+    .about-greeting { align-self: flex-start; display: inline-block; margin-bottom: 34px; padding: 10px 20px; border-radius: 999px; background: #f7eee3; border: 1px solid #eadcc8; font-family: 'DM Serif Display', serif; font-size: 18px; }
+    .about-bio-v2 { width: 100%; max-width: 650px; margin-bottom: 22px; font-size: 16px; line-height: 1.95; color: var(--ink-soft); font-weight: 300; }
+    .about-bio-v2 a { color: var(--ink); font-weight: 500; }
+    .about-section-label-v2 { width: 100%; margin-top: 58px; margin-bottom: 16px; font-size: 13px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink); }
+    .exp-list-v2, .edu-list-v2 { width: 100%; }
+    .exp-item-v2, .edu-item-v2 { display: grid; grid-template-columns: 40px 1fr auto; gap: 18px; align-items: center; padding: 18px 0; border-bottom: 1px solid #f2f2f2; }
+    .exp-item-v2:last-child, .edu-item-v2:last-child { border-bottom: none; }
+    .exp-icon-v2, .edu-icon-v2 { width: 34px; height: 34px; display: flex; align-items: center; justify-content: center; border-radius: 8px; background: #f5f5f5; overflow: hidden; }
+    .exp-icon-v2 img, .edu-icon-v2 img { width: 100%; height: 100%; object-fit: contain; padding: 6px; box-sizing: border-box; }
+    .exp-title-v2, .edu-title-v2 { font-size: 14px; line-height: 1.5; color: var(--ink); }
+    .exp-date-v2, .edu-date-v2 { font-size: 12px; color: var(--ink-muted); white-space: nowrap; }
+    .about-footer-v2 { width: 100%; margin-top: 60px; padding-top: 28px; border-top: 1px solid var(--line); display: flex; justify-content: space-between; align-items: center; }
+    .about-footer-v2 .footer-copy { font-size: 12px; color: var(--ink-muted); }
+    .about-footer-v2 .footer-socials-icons { display: flex; gap: 18px; }
+    .about-footer-v2 .footer-socials-icons a { color: var(--ink-soft); text-decoration: none; }
+    .grid-bg { background-image: linear-gradient(rgba(0,0,0,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(0,0,0,0.03) 1px, transparent 1px); background-size: 60px 60px; }
+    .reveal { opacity: 0; transform: translateY(16px); transition: opacity 0.5s ease, transform 0.5s ease; }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+    .reveal-d1 { transition-delay: 0.1s; }
+    @media (max-width: 760px) {
+      .clean-meta-table { grid-template-columns: repeat(2, 1fr); }
+      .why-grid { grid-template-columns: 1fr; }
+      .persona-cols { grid-template-columns: 1fr; }
+      .solution-shots { grid-template-columns: 1fr; }
+      .impact-mobiles { grid-template-columns: repeat(2, 1fr); }
+    }
+  </style>
 </head>
 <body>
-
-<div class="cur" id="cur"></div>
-<div class="cur-r" id="curR"></div>
-
-<nav id="nav">
-  <a class="n-logo" href="#">Inès Moumni</a>
-  <div class="n-links">
-    <a href="#education">Education</a>
-    <a href="#experience">Experience</a>
-    <a href="#projects">Projects</a>
-    <a href="#contact">Contact</a>
-  </div>
-</nav>
-
-<!-- ══════════ HERO ══════════ -->
-<section id="hero">
-  <div class="h-name-row">
-    <h1 class="h-name">Inès <span class="surname">Moumni</span></h1>
-    <div class="h-avatar">
-      <img src="https://github.com/inesmoumni1/portfolio-assets/raw/main/photo%20de%20profil.png" alt="Inès Moumni">
-    </div>
-  </div>
-  <div class="h-tag" id="typed"><span class="tc">|</span></div>
-  <div class="h-chips">
-    <span class="chip">Marketing</span>
-    <span class="chip">Data Analysis</span>
-    <span class="chip">Product</span>
-    <span class="chip">React.js</span>
-    <span class="chip">Scrum Master</span>
-    <span class="chip">GenAI</span>
-  </div>
-  <a href="#experience" class="h-cta">Explore my work →</a>
-  <div class="h-stats">
-    <div class="h-stat"><span class="h-stat-n">+2 063%</span><div class="h-stat-l">Organic growth generated</div></div>
-    <div class="h-stat"><span class="h-stat-n">60+</span><div class="h-stat-l">B2B partners managed</div></div>
-    <div class="h-stat"><span class="h-stat-n">600+</span><div class="h-stat-l">Consumer data points</div></div>
-    <div class="h-stat"><span class="h-stat-n">€20k</span><div class="h-stat-l">Funding secured</div></div>
-  </div>
-</section>
-
-<!-- ══════════ EDUCATION ══════════ -->
-<section id="education">
-  <div class="edu-grid">
-    <div class="edu-sticky rv d1">
-      <span class="s-label">Academic Background</span>
-      <h2>What I've<br><em>Learned</em></h2>
-    </div>
-    <div class="edu-items">
-      <div class="edu-item rv d2">
-        <div class="edu-date">2026 — 2027 (Planned)</div>
-        <h3>SKEMA Business School</h3>
-        <div class="sub">MS Marketing, Data & E-commerce · Future Apprentice</div>
-        <p>Specialization at the intersection of marketing strategy, data analytics, and digital commerce.</p>
-      </div>
-      <div class="edu-item rv d3">
-        <div class="edu-date">Graduated — First Class Honors</div>
-        <h3>Toulouse Business School (TBS)</h3>
-        <div class="sub">MSc International Business & Master in Marketing</div>
-        <p>Double degree (Barcelona & Toulouse). Developed a strong foundation in global market dynamics and brand management.</p>
-        <p style="margin-top:10px;font-weight:500;font-size:.87rem;color:var(--dark);"><strong>Master Thesis:</strong> "Partnering for Impact: How Non-Governmental Organizations Support Multinational Enterprises in Achieving Sustainable Development Goals." — Presented at the EIBA International Conference in Lisbon. Currently under publication.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ══════════ EXPERIENCE ══════════ -->
-<section id="experience">
-  <div class="exp-grid">
-    <div class="exp-sticky rv">
-      <span class="s-label">Professional Experience</span>
-      <h2>What I've<br><em>Built</em></h2>
-    </div>
-    <div class="exp-items">
-
-      <!-- McCormick -->
-      <div class="exp-item rv d1">
-        <div class="exp-date">MAR — APR 2025</div>
-        <h3>McCormick</h3>
-        <div class="exp-role">Graduate Program — National Finalist • Top 10%</div>
-        <p>Selected among the top 10% of national candidates to solve a strategic business case for the Marketing Leadership Team.</p>
-        <ul class="exp-list">
-          <li><strong>Data Mining:</strong> Processed 600+ consumer data points to identify growth levers and market opportunities.</li>
-          <li><strong>Strategic Impact:</strong> Delivered high-level recommendations to the Board at Avignon HQ, influencing the brand's local roadmap.</li>
-        </ul>
-        <div class="exp-tags">
-          <span class="tag">600+ DATA POINTS</span>
-          <span class="tag">TOP 10%</span>
-          <span class="tag">EXECUTIVE PITCH</span>
-        </div>
-      </div>
-
-      <!-- Planète Mer -->
-      <div class="exp-item rv d2">
-        <div class="exp-date">SEPT 2022 — DEC 2023</div>
-        <h3>Planète Mer</h3>
-        <div class="exp-role">Project Manager & B2B Partnerships • Marine NGO</div>
-        <p>Full 360° marketing and partnership role, bridging the gap between corporate funding and environmental impact.</p>
-        <ul class="exp-list">
-          <li><strong>Partnerships:</strong> Secured €20k in funding and managed 60+ B2B accounts.</li>
-          <li><strong>Tech & UX:</strong> Orchestrated UAT testing for the new platform and managed CRM newsletters.</li>
-          <li><strong>Multimedia:</strong> Produced high-impact corporate video content (Full production cycle).</li>
-        </ul>
-        <div class="exp-tags">
-          <span class="tag">60+ PARTNERS</span>
-          <span class="tag">€20K FUNDING</span>
-          <span class="tag">UAT TESTING</span>
-          <span class="tag">300+ ATTENDEES</span>
-        </div>
-        <div class="kit-grid">
-          <div class="kit-cell">
-            <img src="https://github.com/inesmoumni1/portfolio-assets/raw/main/welcome%20kit%20plan%C3%A8te%20mer%20-%201.png" alt="Welcome Kit Planète Mer - couverture">
+  <canvas id="cursor-canvas"></canvas>
+  <div class="cursor-dot" id="cursor-dot"></div>
+  <nav id="nav">
+    <a class="nav-link" href="#" data-nav="home-top" onclick="goHome(); return false;"><span class="nav-icon">🧩</span> Home</a>
+    <a class="nav-link" href="#" data-nav="work" onclick="goWork(); return false;"><span class="nav-icon">🗂</span> Work</a>
+    <a class="nav-link" href="#" data-nav="about" onclick="showPage('about'); return false;"><span class="nav-icon">👤</span> About</a>
+    <a class="nav-link nav-resume" href="https://drive.google.com/file/d/1le4S893ErFUj_fWEI2Qp2A7D0G6dhRXB/view?usp=sharing" target="_blank"><span class="nav-icon">📄</span> Resume</a>
+  </nav>
+  <!-- ══════════ HOME (hero + work thumbnails, one scroll) ══════════ -->
+  <div id="page-home" class="page active">
+    <section class="home-hero">
+      <h1 class="hero-headline reveal">
+        <span class="name-highlight">Inès Moumni</span> bridges the gap between business strategy and
+        <span class="animated-word" id="animated-word">human-centric</span> design.
+      </h1>
+      <p class="hero-sub reveal">Designing for e-commerce, product, and service experiences<br>where business goals, user needs, and craft intersect.</p>
+      <p class="hero-sub-shipped reveal" style="margin-top:8px;">Currently building: <a href="https://retailsignal-ai.vercel.app" target="_blank">RetailSignal AI</a> — an LLM-powered sales intelligence tool.</p>
+    </section>
+    <section id="work">
+      <p class="work-eyebrow">Selected work</p>
+      <div class="work-cards">
+        <a class="work-card reveal" href="#" onclick="showPage('chandelles'); return false;">
+          <div class="work-card-image wc-img-chandelles">
+            <img src="images/chandelles-redesign.jpg" alt="36 Chandelles redesign — product page" loading="lazy" />
           </div>
-          <div class="kit-cell">
-            <img src="https://github.com/inesmoumni1/portfolio-assets/raw/main/welcome%20kit%20plan%C3%A8te%20mer%20-%202.png" alt="Welcome Kit Planète Mer - contenu">
-          </div>
-        </div>
-        <p style="font-size:.62rem;text-transform:uppercase;letter-spacing:3px;color:var(--gold);margin-top:2rem;margin-bottom:.8rem;">Corporate Storytelling: From Print to Motion</p>
-        <a href="https://www.youtube.com/watch?v=e2LvnveogIA" target="_blank" style="display:block;position:relative;text-decoration:none;border-radius:8px;overflow:hidden;box-shadow:0 20px 40px rgba(0,0,0,.1);margin-top:.5rem;" onmouseenter="this.querySelector('.play-overlay').style.background='rgba(0,0,0,.55)'" onmouseleave="this.querySelector('.play-overlay').style.background='rgba(0,0,0,.35)'">
-          <img src="https://github.com/inesmoumni1/portfolio-assets/raw/main/Vid%C3%A9o%20corporate.png" alt="Vidéo corporate Planète Mer" style="width:100%;display:block;">
-          <div class="play-overlay" style="position:absolute;inset:0;background:rgba(0,0,0,.12);display:flex;align-items:center;justify-content:center;transition:background .3s;">
-            <div style="width:64px;height:64px;background:var(--gold);border-radius:50%;display:flex;align-items:center;justify-content:center;box-shadow:0 8px 24px rgba(184,112,58,.4);">
-              <svg width="20" height="22" viewBox="0 0 20 22" fill="none"><path d="M2 1l16 10L2 21V1z" fill="#fff"/></svg>
+          <div class="wc-card-meta">
+            <div class="wc-card-stat">Reducing checkout hesitation for a sensory product</div>
+            <div class="wc-card-title">Selling Scent Through a Screen: Redesigning 36 Chandelles</div>
+            <div class="wc-badges">
+              <span class="badge">UX Research</span>
+              <span class="badge">E-commerce</span>
+              <span class="badge">2-week Sprint</span>
+              <a href="https://medium.com/@moumni.iness/selling-scent-through-a-screen-redesigning-36-chandelles-website-347849bd3f46" target="_blank" class="badge badge-filled" onclick="event.stopPropagation();">Read on Medium ↗</a>
             </div>
           </div>
         </a>
-        <p style="font-size:.8rem;color:var(--muted);margin-top:.9rem;font-style:italic;font-weight:300;">Produced, filmed, and edited to align with Planète Mer's branding strategy.</p>
+        <a class="work-card reveal reveal-d1" href="https://retailsignal-ai.vercel.app" target="_blank">
+          <div class="work-card-image wc-img-retailsignal">
+            <img src="images/retailsignal-dashboard.png" alt="RetailSignal AI dashboard" loading="lazy" />
+          </div>
+          <div class="wc-card-meta">
+            <div class="wc-card-stat">Scaling commercial efficiency with AI</div>
+            <div class="wc-card-title">Scaling Commercial Efficiency — RetailSignal AI</div>
+            <div class="wc-badges">
+              <span class="badge">Full-stack</span>
+              <span class="badge">MVP</span>
+              <span class="badge">AI-powered</span>
+              <a href="https://retailsignal-ai.vercel.app" target="_blank" class="badge badge-filled" onclick="event.stopPropagation();">Live Demo ↗</a>
+            </div>
+          </div>
+        </a>
       </div>
-
-      <!-- Hopper -->
-      <div class="exp-item rv d2">
-        <div class="exp-date">Mar – Apr 2023</div>
-        <h3>SESAME Consulting <span style="font-family:'DM Sans';font-size:.8rem;font-weight:300;color:var(--muted)">via TBS Education</span></h3>
-        <div class="exp-role">Scrum Master & Strategy Consultant • Hopper</div>
-        <p>Orchestrated 2 Agile Scrum sprints for a cross-functional team of 10 junior consultants — backlog, sprint planning, weekly stand-ups and client sprint reviews. Delivered an internationalization strategy for the client.</p>
-        <div class="exp-tags">
-          <span class="tag">Scrum Master</span>
-          <span class="tag">Agile</span>
-          <span class="tag">Sprints</span>
-          <span class="tag">Backlog</span>
+      <footer>
+        <div class="footer-name">Inès Moumni</div>
+        <div class="footer-links">
+          <a href="https://www.linkedin.com/in/in%C3%A8s-moumni" target="_blank">LinkedIn</a>
+          <a href="https://medium.com/@moumni.iness" target="_blank">Medium</a>
+          <a href="mailto:moumni.iness@gmail.com">Email</a>
         </div>
-      </div>
-
-      <!-- JNC Nova / beterre -->
-      <div class="exp-item rv d2">
-        <div class="exp-date">Jan 2021 – Jan 2022</div>
-        <h3>JnC Nova / Beterre</h3>
-        <div class="exp-role">Content Strategy & Growth • Early-Stage Startup</div>
-        <p>Built the editorial strategy from scratch for an early-stage eco-responsible startup, driving measurable growth across organic and e-commerce channels.</p>
-        <ul class="exp-list">
-          <li><strong>Exponential Growth:</strong> Engineered and executed a full editorial strategy from scratch, delivering +2,063% organic growth through data-driven storytelling and SEO optimization.</li>
-          <li><strong>E-commerce Launch:</strong> Orchestrated the store launch, achieving 150% of the Day 1 sales target (120 units sold vs. a goal of 80).</li>
-          <li><strong>Creative Direction:</strong> Developed 4 distinct content formats to diversify brand touchpoints and maximize community engagement.</li>
-        </ul>
-        <div class="exp-tags">
-          <span class="tag">SEO</span>
-          <span class="tag">Content Strategy</span>
-          <span class="tag">E-commerce</span>
-          <span class="tag">+2 063% Growth</span>
-        </div>
-        <div class="ig-feed">
-          <div class="ig-cell">
-            <img src="https://github.com/inesmoumni1/portfolio-assets/raw/main/post%20beterre%201.jpg" alt="beterre post 1">
-          </div>
-          <div class="ig-cell">
-            <img src="https://github.com/inesmoumni1/portfolio-assets/raw/main/post%20beterre%202.jpg" alt="beterre post 2">
-          </div>
-        </div>
-        <div class="ig-blog">
-          <div class="blog-cell">
-            <div class="bn">+2 063%</div>
-            <div class="bl">Organic reach · content-led growth</div>
-          </div>
-          <div class="blog-cell">
-            <div class="bn">20+</div>
-            <div class="bl">SEO articles published · beterrebox.com</div>
-          </div>
-        </div>
-      </div>
-
-    </div>
+        <div class="footer-copy">© 2026 · Paris</div>
+      </footer>
+    </section>
   </div>
-</section>
-
-<!-- ══════════ PROJECTS ══════════ -->
-<section id="projects">
-  <span class="s-label rv">Personal Projects</span>
-  <h2 class="sec-h rv">Side projects &<br><em>entrepreneurship</em></h2>
-
-  <!-- RetailSignal -->
-  <div class="rs-wrap rv">
-    <div class="rs-top">
-      <div class="rs-text">
-        <span class="s-label">MVP in production · 2026 <span class="live-badge"><span class="live-dot"></span>Live</span></span>
-        <h3>RetailSignal <em>AI</em></h3>
-        <p>Watching Account Managers lose hours on Google Trends, I built a solo MVP to automate market intelligence.</p>
+  <!-- ══════════ ABOUT ══════════ -->
+  <div id="page-about" class="page grid-bg">
+    <div class="about-wrapper-v2">
+      <div class="about-photo-wrap">
+        <div class="about-photo-frame-v2">
+          <img src="https://raw.githubusercontent.com/inesmoumni1/Ines-Moumni/main/photo%20profil.png" alt="Inès Moumni" onerror="this.parentElement.innerHTML='📷'" />
+        </div>
+        <span class="about-photo-sparkle">✦</span>
       </div>
-      <ul class="rs-feats">
-        <li><strong style="color:rgba(255,255,255,.7)">GenAI Engine:</strong> Uses Gemini 1.5 Pro to turn raw consumer trends into automated Sales Battlecards.</li>
-        <li><strong style="color:rgba(255,255,255,.7)">Business Logic:</strong> Integrated ROI simulators to bridge the gap between consumer insights and stock investment.</li>
-        <li><strong style="color:rgba(255,255,255,.7)">Full-Stack:</strong> Designed, developed, and deployed a scalable end-to-end architecture (React.js / Tailwind / Vercel).</li>
-      </ul>
-    </div>
-    <div class="browser rv d2">
-      <div class="br-bar">
-        <div class="br-dot" style="background:#FF5F57"></div>
-        <div class="br-dot" style="background:#FEBC2E"></div>
-        <div class="br-dot" style="background:#28C840"></div>
-        <div class="br-url">retailsignal-ai.vercel.app</div>
+      <div class="about-greeting">Hi, I'm Inès Moumni!</div>
+      <p class="about-bio-v2">I'm a product manager with a Master's in International Business and a background in Marketing. Currently studying UX/UI Design at Ironhack (June 2026), I bridge the gap between business strategy and human-centric design. My path is unconventional, and that's my greatest strength: I don't just design interfaces, I build solutions that solve actual business problems.</p>
+      <p class="about-bio-v2">Having navigated the worlds of data strategy and product management, I thrive in the "discovery to delivery" loop. Whether I'm analyzing market trends or designing an MVP interface, my goal remains the same: creating impact.</p>
+      <p class="about-bio-v2" style="margin-bottom:0;">Lately, I've been integrating AI and LLM workflows into how I prototype and validate ideas faster. Let's connect on <a href="https://www.linkedin.com/in/in%C3%A8s-moumni" target="_blank">LinkedIn</a> ✦</p>
+      <div class="about-section-label-v2">Experiences</div>
+      <div class="exp-list-v2">
+        <div class="exp-item-v2"><div class="exp-icon-v2"><img src="images/logo-mccormick.png" alt="McCormick logo" loading="lazy" /></div><div class="exp-title-v2">Data Strategy &amp; Insights (Graduate Program) — McCormick</div><div class="exp-date-v2">Spring 2025</div></div>
+        <div class="exp-item-v2"><div class="exp-icon-v2"><img src="images/logo-planete-mer.jpg" alt="Planète Mer logo" loading="lazy" /></div><div class="exp-title-v2">Digital Project &amp; B2B Partnerships Manager — Planète Mer (NGO)</div><div class="exp-date-v2">2023 – 2024</div></div>
+        <div class="exp-item-v2"><div class="exp-icon-v2"><img src="images/logo-hopper.png" alt="Hopper logo" loading="lazy" /></div><div class="exp-title-v2">Scrum Master &amp; Consultant — Hopper (school project)</div><div class="exp-date-v2">Spring 2023</div></div>
       </div>
-      <div class="br-body">
-        <img src="https://github.com/inesmoumni1/portfolio-assets/raw/main/RetailSignal%20AI.png" alt="RetailSignal AI screenshot">
+      <div class="about-section-label-v2">Education</div>
+      <div class="edu-list-v2">
+        <div class="edu-item-v2"><div class="edu-icon-v2"><img src="images/logo-ironhack.png" alt="Ironhack logo" loading="lazy" /></div><div class="edu-title-v2">UX/UI Design Bootcamp — Ironhack (remote)</div><div class="edu-date-v2">2026</div></div>
+        <div class="edu-item-v2"><div class="edu-icon-v2"><img src="images/logo-tbs.png" alt="TBS Education logo" loading="lazy" /></div><div class="edu-title-v2">MSc International Business — TBS Education (Barcelona)</div><div class="edu-date-v2">2023</div></div>
       </div>
-    </div>
-    <div style="margin-top:2rem;text-align:center;">
-      <a href="https://retailsignal-ai.vercel.app/" target="_blank" class="rs-btn">View live demo →</a>
-    </div>
-  </div>
-
-  <!-- Hammam Glow -->
-  <div class="hg-wrap rv">
-    <div class="hg-img">
-      <img id="hgImg" src="https://github.com/inesmoumni1/portfolio-assets/raw/main/Hammam%20box.png" alt="Hammam Glow Box" style="box-shadow:0 20px 40px rgba(0,0,0,.08);">
-    </div>
-    <div class="hg-text rv d2">
-      <span class="s-label">Entrepreneurship · Beauty · Feb – Sept 2024</span>
-      <h3>Hammam <em>Glow</em></h3>
-      <p>Identified a white space in the French wellness market around the hammam ritual. Conducted competitive benchmarking, sourced 4 premium SKUs from Moroccan suppliers, and built a comprehensive financial feasibility model.</p>
-      <p style="font-size:.82rem;color:var(--muted);font-style:italic;">Strategic pivot following a rigorous profitability audit — prioritizing long-term financial viability over immediate market entry.</p>
-      <div class="sku-g">
-        <div class="sku">Argan Oil</div>
-        <div class="sku">Savon Beldi</div>
-        <div class="sku">Kessa Glove</div>
-        <div class="sku">Ghassoul Clay</div>
+      <div class="about-footer-v2">
+        <div class="footer-copy">© 2026 Inès Moumni</div>
+        <div class="footer-socials-icons">
+          <a href="https://www.linkedin.com/in/in%C3%A8s-moumni" target="_blank">in</a>
+          <a href="mailto:moumni.iness@gmail.com">✉</a>
+        </div>
       </div>
     </div>
   </div>
-
-</section>
-
-<!-- ══════════ CONTACT ══════════ -->
-<section id="contact">
-  <span class="ct-label rv">Available from September 2026</span>
-  <h2 class="ct-title rv">Looking for my<br><em>next adventure</em></h2>
-  <p class="ct-sub rv">Seeking a 12-month work-study contract (alternance) starting September 2026 — ready for full immersion from day one.</p>
-  <a href="mailto:moumni.iness@gmail.com?subject=Contact via Portfolio&body=Bonjour Inès," class="ct-btn rv">Get in touch</a>
-  <div class="ct-links rv">
-    <a href="mailto:moumni.iness@gmail.com">moumni.iness@gmail.com</a>
-    <a href="https://retailsignal-ai.vercel.app/" target="_blank">RetailSignal AI</a>
-    <a href="https://www.linkedin.com/in/in%C3%A8s-moumni/" target="_blank">LinkedIn</a>
-    <a <a href="https://github.com/inesmoumni1/portfolio-assets/raw/main/Resume_In%C3%A8s_MOUMNI.pdf" target="_blank">Download CV</a>
+  <!-- ══════════ 36 CHANDELLES — dedicated case study, clean style ══════════ -->
+  <div id="page-chandelles" class="page">
+    <div class="case-hero-img">
+      <img src="images/case-study-hero.jpg" alt="36 Chandelles — artisanal candle tins" loading="lazy" />
+    </div>
+    <div class="clean-wrapper">
+      <a href="#" onclick="showPage('home'); return false;" style="font-size:13px;color:var(--ink-muted);text-decoration:none;">← Back to work</a>
+      <p class="clean-eyebrow" style="margin-top:24px;">UX Research · E-commerce · Ironhack</p>
+      <h1 class="clean-h1">Selling Scent Through a Screen: Redesigning 36 Chandelles</h1>
+      <p class="clean-dek">How we bridged the sensory gap for an artisanal candle brand.</p>
+      <div class="clean-meta-table">
+        <div><div class="clean-meta-label">Project type</div><div class="clean-meta-value">36 Chandelles' website redesign</div></div>
+        <div><div class="clean-meta-label">Team</div><div class="clean-meta-value">Two product designers</div></div>
+        <div><div class="clean-meta-label">Tools</div><div class="clean-meta-value">Figma and Claude</div></div>
+        <div><div class="clean-meta-label">Timeline</div><div class="clean-meta-value">2 weeks</div></div>
+      </div>
+      <h2 class="clean-h2">The Problem</h2>
+      <p class="clean-p">Angèle, the founder of 36 Chandelles, was losing sales daily because her customers couldn't "smell" her products online. It was a business problem wearing a design disguise — she was manually recovering lost sales by messaging customers herself.</p>
+      <h2 class="clean-h2">Why it mattered</h2>
+      <div class="why-grid">
+        <div class="why-card"><div class="icon">🧑‍🤝‍🧑</div><div class="label">The customer</div><p>Struggles to evaluate scent, causing purchase hesitation.</p></div>
+        <div class="why-card"><div class="icon">🏪</div><div class="label">The business</div><p>Angèle spends hours manually managing sales, limiting her time for production and growth.</p></div>
+        <div class="why-card"><div class="icon">✎</div><div class="label">The brand</div><p>The website fails to reflect the true quality and authenticity of the artisanal products.</p></div>
+      </div>
+      <h2 class="clean-h2">The Strategy</h2>
+      <p class="clean-p">We didn't just design; we listened. By combining secondary research with deep-dive user interviews, we mapped out the "sensory gap" that prevented purchases. We reframed the challenge: <strong>How might we help users feel confident about scent without smelling it?</strong></p>
+      <div class="persona-card">
+        <div class="persona-top">
+          <div class="persona-photo"><img src="images/persona-lilia.jpg" alt="Lilia" onerror="this.parentElement.style.display='none'" /></div>
+          <div><div class="persona-name">Lilia</div><div class="persona-role">Marketing coordinator</div></div>
+        </div>
+        <div class="persona-cols">
+          <div><div class="h">Needs and wants</div><ul><li>Find an original gift</li><li>Feel confident choosing a scent</li><li>Complete the purchase quickly</li></ul></div>
+          <div><div class="h">Pain points and frustration</div><ul><li>Can't evaluate scent online</li><li>Confused by a scattered price range</li><li>Navigation doesn't guide her</li></ul></div>
+        </div>
+        <p class="persona-quote">"Candles are always a safe bet — people love receiving them."</p>
+      </div>
+      <h2 class="clean-h2">The Solution</h2>
+      <p class="clean-p">The redesign focused on three levers: simplifying navigation to reduce friction, integrating trust badges above the fold, and using sensory-evoking language to compensate for the screen's limitations.</p>
+      <div class="solution-shots">
+        <img src="images/solution-shot-1.jpg" alt="36 Chandelles redesigned homepage" loading="lazy" />
+        <img src="images/solution-shot-2.jpg" alt="36 Chandelles redesigned product page" loading="lazy" />
+      </div>
+      <h2 class="clean-h2">Impact and Next Steps</h2>
+      <p class="clean-p">Beyond redesigning screens for computer, we also designed for mobile. As next steps, I recommended two key priorities to drive growth: a format selector for intuitive shopping, and bundle pricing to boost conversion.</p>
+      <div class="impact-mobiles">
+        <img src="images/mobile-1.jpg" alt="Mobile home screen" loading="lazy" />
+        <img src="images/mobile-2.jpg" alt="Mobile catalogue screen" loading="lazy" />
+        <img src="images/mobile-3.jpg" alt="Mobile product screen" loading="lazy" />
+        <img src="images/mobile-4.jpg" alt="Mobile checkout screen" loading="lazy" />
+      </div>
+      <div class="cs-cta">
+        <p>Curious about the full design rationale and final prototype?</p>
+        <a class="btn-cta" href="https://medium.com/@moumni.iness/selling-scent-through-a-screen-redesigning-36-chandelles-website-347849bd3f46" target="_blank">Read the full case study on Medium</a>
+      </div>
+      <footer style="padding:0;margin-top:48px;">
+        <div class="footer-copy">© 2026 Inès Moumni</div>
+        <div style="display:flex;gap:18px;">
+          <a href="https://www.linkedin.com/in/in%C3%A8s-moumni" target="_blank" style="color:var(--ink-soft);text-decoration:none;">in</a>
+          <a href="mailto:moumni.iness@gmail.com" style="color:var(--ink-soft);text-decoration:none;">✉</a>
+        </div>
+      </footer>
+    </div>
   </div>
-  <div class="ft rv">© 2026 Inès Moumni</div>
-</section>
-
 <script>
-// Cursor
-const cur=document.getElementById('cur'),curR=document.getElementById('curR');
-let mx=0,my=0,rx=0,ry=0;
-document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cur.style.transform=`translate(${mx-4}px,${my-4}px)`;});
-(function animR(){rx+=(mx-rx)*.1;ry+=(my-ry)*.1;curR.style.transform=`translate(${rx-18}px,${ry-18}px)`;requestAnimationFrame(animR);})();
-document.querySelectorAll('a,button,.chip').forEach(el=>{
-  el.addEventListener('mouseenter',()=>{curR.style.width='58px';curR.style.height='58px';curR.style.opacity='.8';});
-  el.addEventListener('mouseleave',()=>{curR.style.width='36px';curR.style.height='36px';curR.style.opacity='.45';});
-});
-
-// Nav scroll
-window.addEventListener('scroll',()=>document.getElementById('nav').classList.toggle('sc',window.scrollY>80));
-
-// Typing animation
-const phrases=["From Insight to Impact.","Marketing instinct, proven by data.","Building things that actually work."];
-let pi=0,ci=0,del=false;
-const tel=document.getElementById('typed');
-function type(){
-  const p=phrases[pi];
-  tel.innerHTML=p.slice(0,ci)+'<span class="tc">|</span>';
-  if(!del&&ci<p.length){ci++;setTimeout(type,58);}
-  else if(!del){setTimeout(()=>{del=true;type();},2400);}
-  else if(del&&ci>0){ci--;setTimeout(type,28);}
-  else{del=false;pi=(pi+1)%phrases.length;setTimeout(type,350);}
-}
-setTimeout(type,1200);
-
-// Scroll reveal
-const obs=new IntersectionObserver(e=>e.forEach(x=>{if(x.isIntersecting)x.target.classList.add('on');}),{threshold:.1});
-document.querySelectorAll('.rv').forEach(el=>obs.observe(el));
-
-// Sticky fade on overlap
-function updateStickyOpacity(){
-  document.querySelectorAll('.edu-sticky, .exp-sticky').forEach(sticky => {
-    if(!sticky.classList.contains('on')) return;
-    const stickyR = sticky.getBoundingClientRect();
-    const items = sticky.closest('.edu-grid, .exp-grid').querySelectorAll('.edu-item, .exp-item');
-    let overlap = false;
-    items.forEach(item => {
-      const itemR = item.getBoundingClientRect();
-      if(itemR.top < stickyR.bottom - 20 && itemR.bottom > stickyR.top &&
-         itemR.left < stickyR.right && itemR.right > stickyR.left){
-        overlap = true;
-      }
+  const canvas = document.getElementById('cursor-canvas');
+  const ctx = canvas.getContext('2d');
+  const dot = document.getElementById('cursor-dot');
+  canvas.width = window.innerWidth; canvas.height = window.innerHeight;
+  window.addEventListener('resize', () => { canvas.width = window.innerWidth; canvas.height = window.innerHeight; });
+  const points = []; const MAX_POINTS = 80; let mouseX = -200, mouseY = -200;
+  document.addEventListener('mousemove', (e) => {
+    mouseX = e.clientX; mouseY = e.clientY;
+    dot.style.left = mouseX + 'px'; dot.style.top = mouseY + 'px';
+    points.push({ x: mouseX, y: mouseY, age: 0 });
+    if (points.length > MAX_POINTS) points.shift();
+  });
+  function lerp(a, b, t) { return a + (b - a) * t; }
+  function drawTrail() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    for (let i = 1; i < points.length; i++) {
+      const p1 = points[i - 1], p2 = points[i], t = i / points.length, alpha = t * 0.55;
+      const r = Math.round(lerp(255, 100, t)), g = Math.round(lerp(220, 180, t)), b = Math.round(lerp(80, 240, t));
+      ctx.beginPath(); ctx.moveTo(p1.x, p1.y); ctx.lineTo(p2.x, p2.y);
+      ctx.strokeStyle = `rgba(${r},${g},${b},${alpha})`; ctx.lineWidth = lerp(1.5, 3.5, t); ctx.lineCap = 'round'; ctx.stroke();
+    }
+    for (let i = points.length - 1; i >= 0; i--) { points[i].age++; if (points[i].age > 40) points.splice(i, 1); }
+    requestAnimationFrame(drawTrail);
+  }
+  drawTrail();
+  const wordEl = document.getElementById('animated-word');
+  const TARGET = 'human-centric';
+  const CHARS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz-_+=?$!';
+  function scramble(el, target, duration) {
+    let start = null;
+    function frame(ts) {
+      if (!start) start = ts;
+      const progress = Math.min((ts - start) / duration, 1);
+      const resolvedCount = Math.floor(progress * target.length);
+      let display = '';
+      for (let i = 0; i < target.length; i++) display += i < resolvedCount ? target[i] : CHARS[Math.floor(Math.random() * CHARS.length)];
+      el.textContent = display;
+      if (progress < 1) requestAnimationFrame(frame); else el.textContent = target;
+    }
+    requestAnimationFrame(frame);
+  }
+  if (wordEl) { wordEl.textContent = TARGET; setTimeout(() => { wordEl.textContent = ''; scramble(wordEl, TARGET, 1600); }, 500); }
+  window.addEventListener('scroll', () => { document.getElementById('nav').classList.toggle('scrolled', window.scrollY > 10); });
+  function setActiveNav(name) {
+    document.querySelectorAll('.nav-link').forEach(l => l.classList.toggle('active', l.dataset.nav === name));
+  }
+  function showPage(page) {
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+    document.getElementById('page-' + page).classList.add('active');
+    window.scrollTo(0, 0);
+    setActiveNav(page === 'chandelles' ? 'work' : page);
+  }
+  function goHome() { showPage('home'); }
+  function goWork() {
+    showPage('home');
+    setActiveNav('work');
+    setTimeout(() => document.getElementById('work').scrollIntoView({ behavior: 'smooth' }), 50);
+  }
+  function checkReveal() {
+    document.querySelectorAll('.reveal:not(.visible)').forEach(el => {
+      const rect = el.getBoundingClientRect();
+      if (rect.top < window.innerHeight - 80) el.classList.add('visible');
     });
-    sticky.style.opacity = overlap ? '0.12' : '1';
-  });
-}
-window.addEventListener('scroll', updateStickyOpacity, {passive:true});
-setTimeout(updateStickyOpacity, 800);
-updateStickyOpacity();
-const hgSec=document.getElementById('projects');
-const hgImg=document.getElementById('hgImg');
-if(hgImg){
-  const hgWrap=hgImg.closest('.hg-wrap');
-  hgWrap.addEventListener('mousemove',e=>{
-    const r=hgWrap.getBoundingClientRect();
-    const x=(e.clientX-r.left-r.width/2)/r.width;
-    const y=(e.clientY-r.top-r.height/2)/r.height;
-    hgImg.style.transform=`translate(${x*10}px,${y*-14}px)`;
-  });
-  hgWrap.addEventListener('mouseleave',()=>{hgImg.style.transition='transform .8s ease';hgImg.style.transform='translate(0,0)';});
-  hgWrap.addEventListener('mouseenter',()=>{hgImg.style.transition='transform .1s ease-out';});
-}
+  }
+  window.addEventListener('scroll', checkReveal);
+  setTimeout(checkReveal, 100);
+  setTimeout(() => document.querySelectorAll('.reveal').forEach(el => el.classList.add('visible')), 800);
 </script>
 </body>
 </html>
