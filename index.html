@@ -25,8 +25,8 @@
     .nav-link { font-size: 12px; font-weight: 400; color: var(--ink-soft); text-decoration: none; letter-spacing: 0.2px; transition: color 0.2s; cursor: none; display: flex; align-items: center; gap: 5px; }
     .nav-link:hover, .nav-link.active { color: var(--ink); }
     .nav-icon { font-size: 12px; position: relative; display: inline-flex; align-items: center; justify-content: center; }
-    @keyframes navPulse { 0% { transform: translate(-50%, -50%) scale(0.3); opacity: 0.6; } 100% { transform: translate(-50%, -50%) scale(2.4); opacity: 0; } }
-    .nav-icon.pulsing::after { content: ''; position: absolute; top: 50%; left: 50%; width: 22px; height: 22px; background: radial-gradient(circle, rgba(120,170,235,0.55) 0%, rgba(120,170,235,0) 72%); border-radius: 50%; transform: translate(-50%, -50%) scale(0.3); animation: navPulse 0.5s ease-out; pointer-events: none; }
+    @keyframes sparkBurst { 0% { opacity: 1; transform: translate(-50%, -100%) rotate(var(--angle)) translateY(-2px) scaleY(0.5); } 70% { opacity: 1; } 100% { opacity: 0; transform: translate(-50%, -100%) rotate(var(--angle)) translateY(-13px) scaleY(1); } }
+    .nav-spark { position: absolute; top: 50%; left: 50%; width: 2px; height: 7px; background: #7fb8ec; border-radius: 2px; opacity: 0; pointer-events: none; animation: sparkBurst 0.5s ease-out forwards; }
     .nav-resume { color: var(--ink) !important; border: 1px solid var(--line); border-radius: 100px; padding: 6px 14px; transition: background 0.2s, border-color 0.2s !important; }
     .nav-resume:hover { background: var(--ink); color: var(--white) !important; border-color: var(--ink); }
     .page { display: none; min-height: 100vh; }
@@ -353,10 +353,14 @@
     link.addEventListener('click', () => {
       const icon = link.querySelector('.nav-icon');
       if (!icon) return;
-      icon.classList.remove('pulsing');
-      void icon.offsetWidth;
-      icon.classList.add('pulsing');
-      setTimeout(() => icon.classList.remove('pulsing'), 550);
+      const angles = [0, 45, 90, 135, 180, 225, 270, 315];
+      angles.forEach(angle => {
+        const spark = document.createElement('span');
+        spark.className = 'nav-spark';
+        spark.style.setProperty('--angle', angle + 'deg');
+        icon.appendChild(spark);
+        setTimeout(() => spark.remove(), 550);
+      });
     });
   });
   function goWork() {
